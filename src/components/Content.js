@@ -1,6 +1,12 @@
-import { Button, Toast, Card, Form } from "react-bootstrap";
-import { useState } from "react";
+import { Button, Toast, Card } from "react-bootstrap";
+import { useState, useEffect } from "react";
 
+/**
+ * A functional Component which needs an string[], which is rendering this string
+ * as the title of the cards
+ * @param {[string]} props
+ * @returns map of cards with props as title
+ */
 const FC_Card = (props) => {
   return (
     <div>
@@ -26,15 +32,25 @@ const FC_Card = (props) => {
 };
 
 const Content = () => {
+  // useStates for most common Use-Cases
   const [showA, setShowA] = useState(false);
   const [input, setInput] = useState("");
   const [cardArray, setCardArray] = useState([]);
 
+  // As the Use-Effect gets triggered initally, we need to implement a check
+  useEffect(() => {
+    if (cardArray.length > 0) {
+      setTimeout(() => {
+        setShowA(!showA);
+      }, 1000);
+    }
+  }, [cardArray]);
+
   const submitBtn = () => {
-    setShowA(!showA);
-    // cardArray.push(cardTitle)
-    setCardArray((cardArray) => [...cardArray, input]);
-    setInput("");
+    // Following are two ways to push something into an useState Array
+    setCardArray((cardArray) => [...cardArray, input]); // <-- Correct Way
+    // cardArray.push(cardTitle) // <-- Dirty, but working-ish way
+    setInput(""); // Resets the Input field input when submitted
   };
 
   return (
@@ -49,13 +65,18 @@ const Content = () => {
         flexDirection: "column",
       }}
     >
+      {/** The functional component, called with the input parameter */}
       <FC_Card cards={cardArray} />
+
+      {/** The input field, which is saving the content into useState */}
       <input value={input} onInput={(e) => setInput(e.target.value)} />
 
+      {/** Button, which submits the content */}
       <Button onClick={() => submitBtn()} style={{ marginTop: "8px" }}>
-        Alert!
+        Submit
       </Button>
 
+      {/** Alert, which is triggerd by useEffect */}
       <Toast show={showA}>
         <Toast.Header />
         <Toast.Body>Woohoo, success!!</Toast.Body>
