@@ -169,12 +169,12 @@ You may also see any lint errors in the console.
         setCardArray((cardArray) => [...cardArray, input]);
         setInput("");
         };
-        ```
+    ```
 
     1. Create an input field, which is used to fill the cards:
 
     ```javascript
-    <input value={input} onInput={(e) => setInput(e.target.value)} />
+        <input value={input} onInput={(e) => setInput(e.target.value)} />
     ```
 
 
