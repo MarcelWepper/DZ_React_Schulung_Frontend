@@ -1,11 +1,14 @@
-import logo from '../logo.svg';
+import logo from "./logo.svg";
+import "./App.css";
 
-const Header = () => {
+function App() {
   return (
-      <div className="App" style={{ background: "grey", height:"5vh", display:"flex"}}>
-          <img style={{}}src={logo} alt="logo" height={64} width={64}/>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+      </header>
     </div>
   );
 }
 
-export default Header;
+export default App;
